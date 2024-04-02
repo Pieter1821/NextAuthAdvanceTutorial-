@@ -14,6 +14,13 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { Button } from "@/components/ui/button";
+import { FormError } from "@/components/form-error";
+import { FormSuccess } from "@/components/form-success";
+
+
+
+
 
 
 const LoginForm = () => {
@@ -24,6 +31,10 @@ const LoginForm = () => {
             password: "",
         }
     });
+    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+        console.log(values)
+
+    }
 
     return (
 
@@ -35,7 +46,7 @@ const LoginForm = () => {
         >
             <Form {...form}>
                 <form
-                    onSubmit={form.handleSubmit(() => { })}
+                    onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-6"
                 >
                     <div className="space-y-4">
@@ -54,7 +65,30 @@ const LoginForm = () => {
                                             placeholder="john.doe@example.com"
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
+
+                                </FormItem>
+
+
+                            )}
+
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>password</FormLabel>
+
+                                    <FormControl>
+
+                                        <Input
+                                            {...field}
+                                            type="Password"
+                                            placeholder="******"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
 
                                 </FormItem>
 
@@ -63,6 +97,11 @@ const LoginForm = () => {
 
                         />
                     </div>
+                    <FormError message="" />
+                    <FormSuccess message="" />
+                    <Button type="submit" className="w-full">
+                        Login
+                    </Button>
 
 
                 </form>
