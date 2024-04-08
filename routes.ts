@@ -4,10 +4,7 @@
  * @type {string[]}
  */
 
-
-export const publicRoutes = [
-    "/"
-];
+export const publicRoutes: string[] = ['/'];
 
 /**
  * An Array of routes that are used for authentication
@@ -15,10 +12,7 @@ export const publicRoutes = [
  * @type {string[]}
  */
 
-export const authRoutes = [
-    "/auth/login",
-    "/auth/register"
-]
+export const authRoutes: string[] = ['/auth/login', '/auth/register'];
 
 /**
  * The prefix for API authentication routes
@@ -26,12 +20,11 @@ export const authRoutes = [
  * @type {string}
  */
 
-export const apiAuthPrefix = "/api/auth";
+export const apiAuthPrefix: string = '/api/auth';
 
 /**
- * The default redirect path after logging in 
+ * The default redirect path after logging in
  * @type {string}
  */
 
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
-
+export const DEFAULT_LOGIN_REDIRECT: string = '/settings';
