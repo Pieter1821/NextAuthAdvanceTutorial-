@@ -14,7 +14,9 @@ export const {
 } = NextAuth({
   callbacks: {
     async session({ session, token }) {
-      console.log({ sessionToken: token, session });
+      if(token.sub && session.user ) {
+        session.user.id = token.sub;
+      }
 
       if (session.user) {
         session.user.customField = token.customField;
@@ -23,8 +25,7 @@ export const {
     },
 
     async jwt({ token }) {
-      console.log({ token });
-      token.customField = 'test';
+     
       return token;
     },
   },
