@@ -5,7 +5,6 @@ import authConfig from '@/auth.config';
 import { db } from '@/lib/db';
 import { getUserById } from '@/data/user';
 
-
 const prisma = new PrismaClient();
 
 export const {
@@ -20,8 +19,8 @@ export const {
         session.user.id = token.sub;
       }
 
-      if(token.role && session.user) {
-        session.user.role = token.role
+      if (token.role) {
+        session.user.role = token.role;
       }
 
       return session;
@@ -32,7 +31,7 @@ export const {
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
 
-      token.role = existingUser.role
+      token.role = existingUser.role;
 
       return token;
     },
