@@ -1,14 +1,15 @@
 "use client"
 
+import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { LoginSchema } from "@/schemas";
+import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { login } from "@/actions/login"
 
-import * as z from "zod";
 import {
     Form,
     FormControl,
@@ -22,8 +23,11 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
+
 const LoginForm = () => {
-    // State variables for error, success messages, and form transition
+    const searchParams = useSearchParams();
+    const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
+    ? "Email already in use with different provider!" : "";
     const [error, setError] = useState<string | undefined>("")
     const [success, setSuccess] = useState<string | undefined>("")
     const [isPending, startTransition] = useTransition()
@@ -44,12 +48,12 @@ const LoginForm = () => {
         startTransition(() => {
             // Asynchronous login function call
             login(values)
-            .then((data) => {
-            setError(data.error)
-            setSuccess(data.success)
+                .then((data) => {
+                    setError(data.error)
+                    setSuccess(data.success)
+                })
         })
-    })
-}
+    }
     return (
         <CardWrapper
             headerLabel="Welcome back"
@@ -103,7 +107,7 @@ const LoginForm = () => {
                         />
                     </div>
                     {/* Display error and success messages */}
-                    <FormError message={error} />
+                    <FormError message={error || urlError} />
                     <FormSuccess message={success} />
 
                     <Button
