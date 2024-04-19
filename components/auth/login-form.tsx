@@ -24,6 +24,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
 
+
 const LoginForm = () => {
     const searchParams = useSearchParams();
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
@@ -49,8 +50,9 @@ const LoginForm = () => {
             // Asynchronous login function call
             login(values)
                 .then((data) => {
-                    setError(data.error)
-                    setSuccess(data.success)
+                    setError(data?.error)
+                    // TODO: add when we add 2FA
+                    // setSuccess(data?.success)   
                 })
         })
     }

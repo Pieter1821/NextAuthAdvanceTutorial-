@@ -3,6 +3,7 @@ import { CheckboxIcon } from "@radix-ui/react-icons";
 
 interface FormSuccessProps {
     message?: string;
+    
 }
 
 export const FormSuccess = ({ message }: FormSuccessProps) => {
